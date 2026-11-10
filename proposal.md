@@ -20,7 +20,7 @@ collecting items and avoiding enemies to progress to the next level.
 - Collectible Items
     - There will be collectible items located on specified grids on the board, represented by some kind of visual marker. When the player
     moves onto these same spots, the art will disappear from the screen, likely by creating some kind of conditional for their visiblity based on
-    if a player lands on their space. They will also increment a "collectible" variable in the code and when that reaches a certain number, the  
+    if a player lands on their space. They will also increment a "collectible" variable in the code and when that reaches a certain number, the 
     "win" condition that ends the level will be triggered.
 
 - Winning & Losing
@@ -50,15 +50,15 @@ Minimum Viable Outcome:
 
 ## Milestones
 - Week 1:
-1: Create Level 1 Board
-2: Create Player Movement Logic
-3: Create Enemy Movement Logic
+1. Create Level 1 Board
+2. Create Player Movement Logic
+3. Create Enemy Movement Logic
 
 - Week 2:
-1: Create Collectible Logic
-2: Create Win & Lose Logic
-3: Create Level 2 Board
+1. Create Collectible Logic
+2. Create Win & Lose Logic
+3. Create Level 2 Board
 
 - Week 3 (Final):
-1: Replace Temp Assets with Final Art
-2: Record Final Presentation
+1. Replace Temp Assets with Final Art
+2. Record Final Presentation
