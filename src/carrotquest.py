@@ -18,6 +18,13 @@ def create_level_geo(screen):
     surf5 = pygame.Surface((400, 200))
     surf5.fill(green)
     screen.blit(surf1, (400, 600))
+    screen.blit(surf2, (300, 600))
+    screen.blit(surf2, (600, 600))
+    screen.blit(surf3, (200, 200))
+    screen.blit(surf3, (700, 200))
+    screen.blit(surf4, (100, 300))
+    screen.blit(surf4, (800, 300))
+    screen.blit(surf5, (300, 100))
     for x in range(0, 1000, 100):
         pygame.draw.line(screen, white, (x, 0), (x, 1000), 1)
     for y in range(0, 1000, 100):
