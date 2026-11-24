@@ -1,5 +1,6 @@
 import pygame
 import sys
+import itertools
 
 
 class Character():
@@ -55,8 +56,21 @@ class Enemy():
         surf = pygame.Surface((self.size, self.size))
         surf.fill(self.color)
         return surf
+    
     def draw(self, surface):
         surface.blit(self.surface, self.pos)
+
+    def update_position(self, pos, surface):
+        self.pos = pos
+        surface.blit(self.surface, self.pos)
+
+
+class EnemyMovement():
+    def __init__(self, path):
+        self.cycler = itertools.cycle(path)
+
+    def get_next_path(self):
+        return next(self.cycler)
 
 def create_level_geo(screen):
     black = pygame.Color(0, 0, 0)
@@ -93,6 +107,8 @@ def main():
     pygame.display.set_caption("Carrot Quest")
     character = Character()
     enemy1 = Enemy((237, 650))
+    path1 = [(237, 550), (237, 450), (237, 350), (237, 450), (237, 550), (237, 650)]
+    enemypath1 = EnemyMovement(path1)
     enemy2 = Enemy((237, 250))
     enemy3 = Enemy((737, 350))
     # Set up clock
@@ -111,6 +127,8 @@ def main():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RIGHT:
                     character._update_pos_right(screen)
+                    new_pos = enemypath1.get_next_path()
+                    enemy1.update_position(new_pos, screen)
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:
                     character._update_pos_up(screen)
