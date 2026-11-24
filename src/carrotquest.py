@@ -18,6 +18,31 @@ class Character():
     def draw(self, surface):
         surface.blit(self.surface, self.pos)
 
+    def _update_pos_right(self, surface):
+        x, y = self.pos
+        x += 100
+        self.pos = (x, y)
+        surface.blit(self.surface, self.pos)
+
+    def _update_pos_up(self,surface):
+        x, y = self.pos
+        y -= 100
+        self.pos = (x, y)
+        surface.blit(self.surface, self.pos)
+
+    def _update_pos_left(self, surface):
+        x, y = self.pos
+        x -= 100
+        self.pos = (x, y)
+        surface.blit(self.surface, self.pos)
+
+    def _update_pos_down(self, surface):
+        x, y = self.pos
+        y += 100
+        self.pos = (x, y)
+        surface.blit(self.surface, self.pos)
+
+
 
 def create_level_geo(screen):
     black = pygame.Color(0, 0, 0)
@@ -66,6 +91,18 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RIGHT:
+                    character._update_pos_right(screen)
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_UP:
+                    character._update_pos_up(screen)
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    character._update_pos_left(screen)
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_DOWN:
+                    character._update_pos_down(screen)
         # Fill screen & draw appropriate level geo
         create_level_geo(screen)
         character.draw(screen)
