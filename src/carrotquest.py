@@ -141,12 +141,30 @@ def main():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:
                     character._update_pos_up(screen)
+                    new_pos = enemypath1.get_next_path()
+                    enemy1.update_position(new_pos, screen)
+                    new_pos1 = enemypath2.get_next_path()
+                    enemy2.update_position(new_pos1, screen)
+                    new_pos2 = enemypath3.get_next_path()
+                    enemy3.update_position(new_pos2, screen)
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
                     character._update_pos_left(screen)
+                    new_pos = enemypath1.get_next_path()
+                    enemy1.update_position(new_pos, screen)
+                    new_pos1 = enemypath2.get_next_path()
+                    enemy2.update_position(new_pos1, screen)
+                    new_pos2 = enemypath3.get_next_path()
+                    enemy3.update_position(new_pos2, screen)
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_DOWN:
                     character._update_pos_down(screen)
+                    new_pos = enemypath1.get_next_path()
+                    enemy1.update_position(new_pos, screen)
+                    new_pos1 = enemypath2.get_next_path()
+                    enemy2.update_position(new_pos1, screen)
+                    new_pos2 = enemypath3.get_next_path()
+                    enemy3.update_position(new_pos2, screen)
         # Fill screen & draw appropriate level geo
         create_level_geo(screen)
         character.draw(screen)
