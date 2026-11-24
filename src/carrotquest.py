@@ -2,6 +2,21 @@ import pygame
 import sys
 
 
+class Character():
+
+    def __init__(self, pos=(450, 950), size=15):
+        self.pos = pos
+        self.size = size
+        self.surface = self.update_surface()
+
+    def update_surface(self):
+        surf = pygame.Surface((self.size, self.size))
+        surf.blit("rabbit.jpg", (0, 0))
+
+    def draw(self, surface):
+        surface.blit(self.surface, self.pos)
+
+
 def create_level_geo(screen):
     black = pygame.Color(0, 0, 0)
     white = pygame.Color(255, 255, 255)
@@ -35,6 +50,7 @@ def main():
     # Initialize pygame
     pygame.init()
     pygame.display.set_caption("Carrot Quest")
+    character = Character()
     # Set up clock
     clock = pygame.time.Clock()
     dt = 0
@@ -50,6 +66,7 @@ def main():
                 running = False
         # Fill screen & draw appropriate level geo
         create_level_geo(screen)
+        character.draw(screen)
         # Flip displays
         pygame.display.flip()
         # Have clock tick
