@@ -92,9 +92,9 @@ def main():
     pygame.init()
     pygame.display.set_caption("Carrot Quest")
     character = Character()
-    enemy1 = Enemy((100, 100))
-    enemy2 = Enemy((200, 200))
-    enemy3 = Enemy((300, 300))
+    enemy1 = Enemy((237, 650))
+    enemy2 = Enemy((237, 250))
+    enemy3 = Enemy((737, 350))
     # Set up clock
     clock = pygame.time.Clock()
     dt = 0
