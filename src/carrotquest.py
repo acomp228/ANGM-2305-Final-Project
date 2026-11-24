@@ -43,6 +43,20 @@ class Character():
         surface.blit(self.surface, self.pos)
 
 
+class Enemy():
+
+    def __init__(self, pos=(0,0), size=30):
+        self.pos = pos
+        self.size = size
+        self.color = pygame.Color(255, 0, 0)
+        self.surface = self.update_surface()
+
+    def update_surface(self):
+        surf = pygame.Surface((self.size, self.size))
+        surf.fill(self.color)
+        return surf
+    def draw(self, surface):
+        surface.blit(self.surface, self.pos)
 
 def create_level_geo(screen):
     black = pygame.Color(0, 0, 0)
@@ -78,6 +92,9 @@ def main():
     pygame.init()
     pygame.display.set_caption("Carrot Quest")
     character = Character()
+    enemy1 = Enemy((100, 100))
+    enemy2 = Enemy((200, 200))
+    enemy3 = Enemy((300, 300))
     # Set up clock
     clock = pygame.time.Clock()
     dt = 0
@@ -106,6 +123,9 @@ def main():
         # Fill screen & draw appropriate level geo
         create_level_geo(screen)
         character.draw(screen)
+        enemy1.draw(screen)
+        enemy2.draw(screen)
+        enemy3.draw(screen)
         # Flip displays
         pygame.display.flip()
         # Have clock tick
