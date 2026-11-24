@@ -4,14 +4,16 @@ import sys
 
 class Character():
 
-    def __init__(self, pos=(450, 950), size=15):
+    def __init__(self, pos=(437, 950), size=30):
         self.pos = pos
         self.size = size
+        self.color = pygame.Color(255, 255, 0)
         self.surface = self.update_surface()
 
     def update_surface(self):
         surf = pygame.Surface((self.size, self.size))
-        surf.blit("rabbit.jpg", (0, 0))
+        surf.fill(self.color)
+        return surf
 
     def draw(self, surface):
         surface.blit(self.surface, self.pos)
