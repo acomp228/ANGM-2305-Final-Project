@@ -114,6 +114,8 @@ def main():
              (537, 250), (437, 250), (337, 250), (237, 250)]
     enemypath2 = EnemyMovement(path2)
     enemy3 = Enemy((737, 350))
+    path3 = [(737, 450), (737, 550), (737, 650), (737, 550), (737, 450), (737, 350)]
+    enemypath3 = EnemyMovement(path3)
     # Set up clock
     clock = pygame.time.Clock()
     dt = 0
@@ -134,6 +136,8 @@ def main():
                     enemy1.update_position(new_pos, screen)
                     new_pos1 = enemypath2.get_next_path()
                     enemy2.update_position(new_pos1, screen)
+                    new_pos2 = enemypath3.get_next_path()
+                    enemy3.update_position(new_pos2, screen)
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:
                     character._update_pos_up(screen)
