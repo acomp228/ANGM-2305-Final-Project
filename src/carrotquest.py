@@ -72,6 +72,14 @@ class EnemyMovement():
     def get_next_path(self):
         return next(self.cycler)
 
+class Collectible():
+    def __init__(self, pos=(0, 0), size=30):
+        self.pos = pos
+        self.size = size
+        self.color = pygame.Color(255, 165, 0)
+        self.surface = self.update_surface()
+        
+
 def create_level_geo(screen):
     black = pygame.Color(0, 0, 0)
     white = pygame.Color(255, 255, 255)
