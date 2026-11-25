@@ -12,6 +12,7 @@ class Character(pygame.sprite.Sprite):
         self.color = pygame.Color(255, 255, 0)
         self.surface = self.update_surface()
         self.rect = self.surface.get_rect(topleft=(437, 950))
+        self.prev_pos = self.rect.center
 
     def update_surface(self):
         surf = pygame.Surface((self.size, self.size))
@@ -21,21 +22,42 @@ class Character(pygame.sprite.Sprite):
     def draw(self, surface):
         surface.blit(self.surface, self.rect)
 
-    def _update_pos_right(self, surface):
+    def _update_pos_right(self, surface, targets):
+        self.prev_pos = self.rect.center
         self.rect.x += 100
         surface.blit(self.surface, self.rect)
+        for target in targets:
+            expanded_rect = target.rect.inflate(self.rect.width, self.rect.height)
+            if expanded_rect.clipline(self.prev_pos, self.rect.center):
+                print("Hit detected!")
+        
 
-    def _update_pos_up(self,surface):
+    def _update_pos_up(self,surface, targets):
+        self.prev_pos = self.rect.center
         self.rect.y -= 100
         surface.blit(self.surface, self.rect)
+        for target in targets:
+            expanded_rect = target.rect.inflate(self.rect.width, self.rect.height)
+            if expanded_rect.clipline(self.prev_pos, self.rect.center):
+                print("Hit detected!")
 
-    def _update_pos_left(self, surface):
+    def _update_pos_left(self, surface, targets):
+        self.prev_pos = self.rect.center
         self.rect.x -= 100
         surface.blit(self.surface, self.rect)
+        for target in targets:
+            expanded_rect = target.rect.inflate(self.rect.width, self.rect.height)
+            if expanded_rect.clipline(self.prev_pos, self.rect.center):
+                print("Hit detected!")
 
-    def _update_pos_down(self, surface):
+    def _update_pos_down(self, surface, targets):
+        self.prev_pos = self.rect.center
         self.rect.y += 100
         surface.blit(self.surface, self.rect)
+        for target in targets:
+            expanded_rect = target.rect.inflate(self.rect.width, self.rect.height)
+            if expanded_rect.clipline(self.prev_pos, self.rect.center):
+                print("Hit detected!")
 
 
 class Enemy(pygame.sprite.Sprite):
@@ -128,6 +150,7 @@ def main():
     enemy3 = Enemy((737, 350))
     path3 = [(737, 450), (737, 550), (737, 650), (737, 550), (737, 450), (737, 350)]
     enemypath3 = EnemyMovement(path3)
+    enemies = [enemy1, enemy2, enemy3]
     collectible1 = Collectible((137, 450))
     collectible2 = Collectible((437, 150))
     collectible3 = Collectible((837, 450))
@@ -146,7 +169,7 @@ def main():
                 running = False
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RIGHT:
-                    character._update_pos_right(screen)
+                    character._update_pos_right(screen, enemies)
                     new_pos = enemypath1.get_next_path()
                     enemy1.update_position(new_pos, screen)
                     new_pos1 = enemypath2.get_next_path()
@@ -155,7 +178,7 @@ def main():
                     enemy3.update_position(new_pos2, screen)
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:
-                    character._update_pos_up(screen)
+                    character._update_pos_up(screen, enemies)
                     new_pos = enemypath1.get_next_path()
                     enemy1.update_position(new_pos, screen)
                     new_pos1 = enemypath2.get_next_path()
@@ -164,7 +187,7 @@ def main():
                     enemy3.update_position(new_pos2, screen)
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
-                    character._update_pos_left(screen)
+                    character._update_pos_left(screen, enemies)
                     new_pos = enemypath1.get_next_path()
                     enemy1.update_position(new_pos, screen)
                     new_pos1 = enemypath2.get_next_path()
@@ -173,7 +196,7 @@ def main():
                     enemy3.update_position(new_pos2, screen)
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_DOWN:
-                    character._update_pos_down(screen)
+                    character._update_pos_down(screen, enemies)
                     new_pos = enemypath1.get_next_path()
                     enemy1.update_position(new_pos, screen)
                     new_pos1 = enemypath2.get_next_path()
@@ -189,12 +212,6 @@ def main():
         collectible1.draw(screen)
         collectible2.draw(screen)
         collectible3.draw(screen)
-        if pygame.sprite.collide_rect(character, enemy1):
-            print("Collision detected!")
-        if pygame.sprite.collide_rect(character, enemy2):
-            print("Collision detected!")
-        if pygame.sprite.collide_rect(character, enemy3):
-            print("Collision detected!")
         # Flip displays
         pygame.display.flip()
         # Have clock tick
