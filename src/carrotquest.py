@@ -46,7 +46,7 @@ class Enemy(pygame.sprite.Sprite):
         self.size = size
         self.color = pygame.Color(255, 0, 0)
         self.surface = self.update_surface()
-        self.rect = self.surface.get_rect(center=(pos))
+        self.rect = self.surface.get_rect(topleft=(pos))
 
     def update_surface(self):
         surf = pygame.Surface((self.size, self.size))
@@ -54,11 +54,11 @@ class Enemy(pygame.sprite.Sprite):
         return surf
     
     def draw(self, surface):
-        surface.blit(self.surface, self.pos)
+        surface.blit(self.surface, self.rect)
 
     def update_position(self, pos, surface):
-        self.pos = pos
-        surface.blit(self.surface, self.pos)
+        self.rect = self.surface.get_rect(topleft=(pos))
+        surface.blit(self.surface, self.rect)
 
 
 class EnemyMovement():
@@ -190,6 +190,10 @@ def main():
         collectible2.draw(screen)
         collectible3.draw(screen)
         if pygame.sprite.collide_rect(character, enemy1):
+            print("Collision detected!")
+        if pygame.sprite.collide_rect(character, enemy2):
+            print("Collision detected!")
+        if pygame.sprite.collide_rect(character, enemy3):
             print("Collision detected!")
         # Flip displays
         pygame.display.flip()
