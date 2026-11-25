@@ -30,6 +30,7 @@ class Character(pygame.sprite.Sprite):
         for target in targets:
             expanded_rect = target.rect.inflate(self.rect.width, self.rect.height)
             if expanded_rect.clipline(self.prev_pos, self.rect.center):
+                global game_over
                 game_over = True
         
 
@@ -40,6 +41,7 @@ class Character(pygame.sprite.Sprite):
         for target in targets:
             expanded_rect = target.rect.inflate(self.rect.width, self.rect.height)
             if expanded_rect.clipline(self.prev_pos, self.rect.center):
+                global game_over
                 game_over = True
 
     def _update_pos_left(self, surface, targets):
@@ -49,6 +51,7 @@ class Character(pygame.sprite.Sprite):
         for target in targets:
             expanded_rect = target.rect.inflate(self.rect.width, self.rect.height)
             if expanded_rect.clipline(self.prev_pos, self.rect.center):
+                global game_over
                 game_over = True
 
     def _update_pos_down(self, surface, targets):
@@ -166,7 +169,6 @@ def main():
     screen = pygame.display.set_mode(resolution)
     # Start event loop
     global game_over
-    game_over = False
     running = True
     while running:
         # Define key press behavior
@@ -222,6 +224,22 @@ def main():
             font_1 = pygame.font.SysFont("Arial", 200)
             text = font_1.render("You Lose", True, (255, 255, 255))
             screen.blit(text, (200, 200))
+            pygame.display.flip()
+            pygame.time.wait(3000)
+            character = Character()
+            character.rect.topleft = (437, 950)
+            enemies.clear()
+            enemy1 = Enemy((237, 650))
+            enemypath1 = EnemyMovement(path1)
+            enemy2 = Enemy((237, 250))
+            enemypath2 = EnemyMovement(path2)
+            enemy3 = Enemy((737, 350))
+            enemypath3 = EnemyMovement(path3)
+            enemies = [enemy1, enemy2, enemy3]
+            collectible1 = Collectible((137, 450))
+            collectible2 = Collectible((437, 150))
+            collectible3 = Collectible((837, 450))
+            game_over = False
         # Flip displays
         pygame.display.flip()
         # Have clock tick
