@@ -2,6 +2,7 @@ import pygame
 import sys
 import itertools
 
+game_over = False
 
 class Character(pygame.sprite.Sprite):
 
@@ -29,7 +30,7 @@ class Character(pygame.sprite.Sprite):
         for target in targets:
             expanded_rect = target.rect.inflate(self.rect.width, self.rect.height)
             if expanded_rect.clipline(self.prev_pos, self.rect.center):
-                print("Hit detected!")
+                game_over = True
         
 
     def _update_pos_up(self,surface, targets):
@@ -39,7 +40,7 @@ class Character(pygame.sprite.Sprite):
         for target in targets:
             expanded_rect = target.rect.inflate(self.rect.width, self.rect.height)
             if expanded_rect.clipline(self.prev_pos, self.rect.center):
-                print("Hit detected!")
+                game_over = True
 
     def _update_pos_left(self, surface, targets):
         self.prev_pos = self.rect.center
@@ -48,7 +49,7 @@ class Character(pygame.sprite.Sprite):
         for target in targets:
             expanded_rect = target.rect.inflate(self.rect.width, self.rect.height)
             if expanded_rect.clipline(self.prev_pos, self.rect.center):
-                print("Hit detected!")
+                game_over = True
 
     def _update_pos_down(self, surface, targets):
         self.prev_pos = self.rect.center
@@ -57,7 +58,8 @@ class Character(pygame.sprite.Sprite):
         for target in targets:
             expanded_rect = target.rect.inflate(self.rect.width, self.rect.height)
             if expanded_rect.clipline(self.prev_pos, self.rect.center):
-                print("Hit detected!")
+                global game_over
+                game_over = True
 
 
 class Enemy(pygame.sprite.Sprite):
@@ -138,6 +140,7 @@ def create_level_geo(screen):
 def main():
     # Initialize pygame
     pygame.init()
+    pygame.font.init()
     pygame.display.set_caption("Carrot Quest")
     character = Character()
     enemy1 = Enemy((237, 650))
@@ -159,8 +162,11 @@ def main():
     dt = 0
     # Set resolution & create screen
     resolution = ((1000, 1000))
+    global screen
     screen = pygame.display.set_mode(resolution)
     # Start event loop
+    global game_over
+    game_over = False
     running = True
     while running:
         # Define key press behavior
@@ -212,6 +218,10 @@ def main():
         collectible1.draw(screen)
         collectible2.draw(screen)
         collectible3.draw(screen)
+        if game_over == True:
+            font_1 = pygame.font.SysFont("Arial", 200)
+            text = font_1.render("You Lose", True, (255, 255, 255))
+            screen.blit(text, (200, 200))
         # Flip displays
         pygame.display.flip()
         # Have clock tick
