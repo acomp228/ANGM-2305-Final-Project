@@ -76,10 +76,18 @@ class Collectible():
     def __init__(self, pos=(0, 0), size=30):
         self.pos = pos
         self.size = size
-        self.color = pygame.Color(255, 165, 0)
+        self.color = pygame.Color(255, 128, 0)
         self.surface = self.update_surface()
-        
 
+    def update_surface(self):
+        surf = pygame.Surface((self.size, self.size))
+        surf.fill(self.color)
+        return surf
+
+    def draw(self, surface):
+        surface.blit(self.surface, self.pos)
+
+    
 def create_level_geo(screen):
     black = pygame.Color(0, 0, 0)
     white = pygame.Color(255, 255, 255)
@@ -124,6 +132,7 @@ def main():
     enemy3 = Enemy((737, 350))
     path3 = [(737, 450), (737, 550), (737, 650), (737, 550), (737, 450), (737, 350)]
     enemypath3 = EnemyMovement(path3)
+    collectible1 = Collectible((137, 450))
     # Set up clock
     clock = pygame.time.Clock()
     dt = 0
@@ -179,6 +188,7 @@ def main():
         enemy1.draw(screen)
         enemy2.draw(screen)
         enemy3.draw(screen)
+        collectible1.draw(screen)
         # Flip displays
         pygame.display.flip()
         # Have clock tick
