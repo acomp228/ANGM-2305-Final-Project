@@ -3,13 +3,15 @@ import sys
 import itertools
 
 
-class Character():
+class Character(pygame.sprite.Sprite):
 
     def __init__(self, pos=(437, 950), size=30):
+        super().__init__()
         self.pos = pos
         self.size = size
         self.color = pygame.Color(255, 255, 0)
         self.surface = self.update_surface()
+        self.rect = self.surface.get_rect(topleft=(437, 950))
 
     def update_surface(self):
         surf = pygame.Surface((self.size, self.size))
@@ -17,13 +19,11 @@ class Character():
         return surf
 
     def draw(self, surface):
-        surface.blit(self.surface, self.pos)
+        surface.blit(self.surface, self.rect)
 
     def _update_pos_right(self, surface):
-        x, y = self.pos
-        x += 100
-        self.pos = (x, y)
-        surface.blit(self.surface, self.pos)
+        self.rect.x += 100
+        surface.blit(self.surface, self.rect)
 
     def _update_pos_up(self,surface):
         x, y = self.pos
@@ -44,13 +44,15 @@ class Character():
         surface.blit(self.surface, self.pos)
 
 
-class Enemy():
+class Enemy(pygame.sprite.Sprite):
 
     def __init__(self, pos=(0,0), size=30):
+        super().__init__()
         self.pos = pos
         self.size = size
         self.color = pygame.Color(255, 0, 0)
         self.surface = self.update_surface()
+        self.rect = self.surface.get_rect(center=(pos))
 
     def update_surface(self):
         surf = pygame.Surface((self.size, self.size))
@@ -193,6 +195,8 @@ def main():
         collectible1.draw(screen)
         collectible2.draw(screen)
         collectible3.draw(screen)
+        if pygame.sprite.collide_rect(character, enemy1):
+            print("Collision detected!")
         # Flip displays
         pygame.display.flip()
         # Have clock tick
