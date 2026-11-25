@@ -26,22 +26,16 @@ class Character(pygame.sprite.Sprite):
         surface.blit(self.surface, self.rect)
 
     def _update_pos_up(self,surface):
-        x, y = self.pos
-        y -= 100
-        self.pos = (x, y)
-        surface.blit(self.surface, self.pos)
+        self.rect.y -= 100
+        surface.blit(self.surface, self.rect)
 
     def _update_pos_left(self, surface):
-        x, y = self.pos
-        x -= 100
-        self.pos = (x, y)
-        surface.blit(self.surface, self.pos)
+        self.rect.x -= 100
+        surface.blit(self.surface, self.rect)
 
     def _update_pos_down(self, surface):
-        x, y = self.pos
-        y += 100
-        self.pos = (x, y)
-        surface.blit(self.surface, self.pos)
+        self.rect.y += 100
+        surface.blit(self.surface, self.rect)
 
 
 class Enemy(pygame.sprite.Sprite):
