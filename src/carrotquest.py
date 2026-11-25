@@ -133,6 +133,8 @@ def main():
     path3 = [(737, 450), (737, 550), (737, 650), (737, 550), (737, 450), (737, 350)]
     enemypath3 = EnemyMovement(path3)
     collectible1 = Collectible((137, 450))
+    collectible2 = Collectible((437, 150))
+    collectible3 = Collectible((837, 450))
     # Set up clock
     clock = pygame.time.Clock()
     dt = 0
@@ -189,6 +191,8 @@ def main():
         enemy2.draw(screen)
         enemy3.draw(screen)
         collectible1.draw(screen)
+        collectible2.draw(screen)
+        collectible3.draw(screen)
         # Flip displays
         pygame.display.flip()
         # Have clock tick
